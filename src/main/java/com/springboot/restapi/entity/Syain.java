@@ -14,13 +14,13 @@ import javax.persistence.Table;
 public class Syain implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-    @Column(name="token")
-	private  String token;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
 	private  int userId;
+
+    @Column(name="token")
+	private  String token;
 
     @Column(name="email")
 	private  String email;

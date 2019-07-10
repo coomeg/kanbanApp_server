@@ -22,11 +22,11 @@ public class Login {
 	SyainRepository syainRepository;
 
 	@RequestMapping(value="/api/login", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public String index(@RequestBody UserBean bean, HttpServletRequest request) {
+	public Syain index(@RequestBody UserBean bean, HttpServletRequest request) {
 		System.out.println(bean.getEmail() + bean.getPassword());
 		Syain syain = syainRepository.selectToken(bean.getEmail(), bean.getPassword());
 		request.getSession().setAttribute("user", syain);
-		return "test";
+		return syain;
 	}
 
     @RequestMapping(value="/api/login", method = RequestMethod.GET)
