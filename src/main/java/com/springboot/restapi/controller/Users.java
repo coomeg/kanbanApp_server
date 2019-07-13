@@ -1,5 +1,7 @@
 package com.springboot.restapi.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
@@ -7,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +27,12 @@ public class Users {
 	@Autowired
 	SyainRepository syainRepository;
 
-	@GetMapping
-	@RequestMapping(path = "/users/{id}", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public int getUser(@PathVariable("id") int id, HttpServletRequest request) {
-		return id;
+	@PostMapping
+	@RequestMapping(path = "/api/getUser", method = RequestMethod.POST)
+	public Optional<Syain> getUser(HttpServletRequest request) {
+		Syain syain = (Syain) request.getSession().getAttribute("user");
+		System.out.println("user_id:" + syain.getUserId());
+		return syainRepository.findById(new Long(syain.getUserId()));
 	}
 
 	@PostMapping
