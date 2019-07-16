@@ -1,13 +1,12 @@
 package com.springboot.restapi.controller;
 
-import java.util.Optional;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,7 +20,6 @@ import com.springboot.restapi.entity.Syain;
 import com.springboot.restapi.repository.SyainRepository;
 
 @RestController
-@CrossOrigin
 public class Users {
 
 	@Autowired
@@ -29,10 +27,10 @@ public class Users {
 
 	@PostMapping
 	@RequestMapping(path = "/api/getUser", method = RequestMethod.POST)
-	public Optional<Syain> getUser(HttpServletRequest request) {
+	public List<Syain> getUser(HttpServletRequest request) {
 		Syain syain = (Syain) request.getSession().getAttribute("user");
 		System.out.println("user_id:" + syain.getUserId());
-		return syainRepository.findById(new Long(syain.getUserId()));
+		return syainRepository.findAll();
 	}
 
 	@PostMapping
