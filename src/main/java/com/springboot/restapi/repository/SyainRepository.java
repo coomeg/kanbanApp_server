@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.springboot.restapi.entity.Syain;
 
 @Repository
-public interface SyainRepository extends JpaRepository<Syain, Long> {
+public interface SyainRepository extends JpaRepository<Syain, Integer> {
 
 	@Query("select s from Syain s where s.email = :email AND password = :password")
 	public Syain selectToken(@Param("email")String email, @Param("password")String password);
