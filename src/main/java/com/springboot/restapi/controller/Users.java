@@ -1,6 +1,6 @@
 package com.springboot.restapi.controller;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,10 +27,10 @@ public class Users {
 
 	@PostMapping
 	@RequestMapping(path = "/api/getUser", method = RequestMethod.POST)
-	public List<Syain> getUser(HttpServletRequest request) {
+	public Optional<Syain> getUser(HttpServletRequest request) {
 		Syain syain = (Syain) request.getSession().getAttribute("user");
 		System.out.println("user_id:" + syain.getUserId());
-		return syainRepository.findAll();
+		return syainRepository.findById(syain.getUserId());
 	}
 
 	@PostMapping
