@@ -1,14 +1,12 @@
 package com.springboot.restapi.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.restapi.controller.data.UserBean;
@@ -16,7 +14,7 @@ import com.springboot.restapi.entity.Syain;
 import com.springboot.restapi.repository.SyainRepository;
 
 @RestController
-public class Login {
+public class LoginController {
 
 	@Autowired
 	SyainRepository syainRepository;
@@ -24,7 +22,6 @@ public class Login {
 	@Autowired
 	HttpSession session;
 
-	@ExceptionHandler(Exception.class)
 	@RequestMapping(value="/api/login", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public Syain index(@RequestBody UserBean bean) {
 		System.out.println(bean.getEmail() + bean.getPassword());
@@ -38,9 +35,10 @@ public class Login {
 		return syain;
 	}
 
-    @RequestMapping(value="/api/login", method = RequestMethod.GET)
-    public Syain get(HttpServletRequest request) throws Exception {
-
-        return (Syain)request.getSession().getAttribute("user");
-    }
+	@PostMapping
+	@RequestMapping(value="/api/logout", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void logout(@RequestBody UserBean bean) {
+		session.invalidate();
+		System.out.println("ログアウト完了!!");
+	}
 }
