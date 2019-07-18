@@ -20,7 +20,7 @@ import com.springboot.restapi.entity.Syain;
 import com.springboot.restapi.repository.SyainRepository;
 
 @RestController
-public class Users {
+public class UsersController {
 
 	@Autowired
 	SyainRepository syainRepository;
@@ -29,6 +29,9 @@ public class Users {
 	@RequestMapping(path = "/api/getUser", method = RequestMethod.POST)
 	public Optional<Syain> getUser(HttpServletRequest request) {
 		Syain syain = (Syain) request.getSession().getAttribute("user");
+		if (syain == null) {
+			throw new RuntimeException("ユーザー情報が存在しません。");
+		}
 		System.out.println("user_id:" + syain.getUserId());
 		return syainRepository.findById(syain.getUserId());
 	}
