@@ -1,5 +1,6 @@
 package com.springboot.restapi.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,5 +65,11 @@ public class UsersController {
 		System.out.println("Email:" + syain.getEmail() + "名前:" + syain.getName());
 		syainRepository.save(syain);
 		return syain;
+	}
+
+	@PostMapping
+	@RequestMapping(path = "/api/getUserLike", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public List<Syain>getUserLike(@RequestBody UserBean bean) {
+		return syainRepository.likeUserName(bean.getName() + "%");
 	}
 }
