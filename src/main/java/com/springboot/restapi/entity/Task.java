@@ -8,10 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import lombok.Data;
 
 @Entity
 @Table(name="task")
+@Data
 public class Task implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -29,6 +34,9 @@ public class Task implements Serializable {
     @Column(name="user_id")
 	private  Integer userId;
 
+    @Column(name="task_list_id")
+	private  Integer taskListId;
+
     @Column(name="create_date")
 	private Timestamp createDate;
 
@@ -38,60 +46,11 @@ public class Task implements Serializable {
     @Column(name="delete_flg")
 	private Boolean deleteFlg;
 
-	public Integer getTaskId() {
-		return taskId;
-	}
+    @ManyToOne
+    @JoinColumn(name="user_id", insertable=false, updatable=false)
+    private Syain syain;
 
-	public void setTaskId(Integer taskId) {
-		this.taskId = taskId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	public Timestamp getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Timestamp createDate) {
-		this.createDate = createDate;
-	}
-
-	public Timestamp getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public Boolean isDeleteFlg() {
-		return deleteFlg;
-	}
-
-	public void setDeleteFlg(Boolean deleteFlg) {
-		this.deleteFlg = deleteFlg;
-	}
-
+    @ManyToOne
+    @JoinColumn(name="task_list_id", insertable=false, updatable=false)
+    private TaskList taskList;
 }
