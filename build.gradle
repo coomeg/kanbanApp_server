@@ -36,6 +36,7 @@ dependencies {
 	implementation 'redis.clients:jedis'
 	implementation 'org.apache.commons:commons-pool2'
 
+	implementation 'commons-lang:commons-lang:2.4'
 	implementation "org.apache.httpcomponents:httpclient"
 	implementation 'org.modelmapper:modelmapper:0.7.5'
 

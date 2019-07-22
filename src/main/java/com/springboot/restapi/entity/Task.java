@@ -1,7 +1,6 @@
 package com.springboot.restapi.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,11 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="task")
 @Data
-public class Task implements Serializable {
+@EqualsAndHashCode(callSuper=true)
+public class Task extends Base implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -37,14 +38,8 @@ public class Task implements Serializable {
     @Column(name="task_list_id")
 	private  Integer taskListId;
 
-    @Column(name="create_date")
-	private Timestamp createDate;
-
-    @Column(name="update_date")
-	private Timestamp updateDate;
-
-    @Column(name="delete_flg")
-	private Boolean deleteFlg;
+    @Column(name="sort_no")
+	private  Integer sortNo;
 
     @ManyToOne
     @JoinColumn(name="user_id", insertable=false, updatable=false)
