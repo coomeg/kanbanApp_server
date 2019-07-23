@@ -1,5 +1,7 @@
 package com.springboot.restapi.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,9 +42,15 @@ public class UsersController {
 	@PostMapping
 	@RequestMapping(path = "/api/users", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public Syain postUser(@RequestBody UserBean bean, HttpServletRequest request) {
+		System.out.println(bean.toString());
 		ModelMapper modelMapper = new ModelMapper();
 		Syain syain = modelMapper.map(bean, Syain.class);
-		System.out.println("Email:" + syain.getEmail() + "名前:" + syain.getName());
+		Date date= new Date();
+        long time = date.getTime();
+        syain.setCreateDate(new Timestamp(time));
+        syain.setUpdateDate(new Timestamp(time));
+		syain.setToken("123");
+		syain.setDeleteFlg(false);
 		syainRepository.save(syain);
 		return syain;
 	}
@@ -50,9 +58,14 @@ public class UsersController {
 	@PutMapping
 	@RequestMapping(path = "/api/users", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public Syain putUser(@RequestBody UserBean bean, HttpServletRequest request) {
+		System.out.println(bean.toString());
 		ModelMapper modelMapper = new ModelMapper();
 		Syain syain = modelMapper.map(bean, Syain.class);
-		System.out.println("ユーザーID:" + syain.getUserId() + "Email:" + syain.getEmail() + "名前:" + syain.getName());
+		Date date= new Date();
+        long time = date.getTime();
+        syain.setUpdateDate(new Timestamp(time));
+        syain.setToken("123");
+        syain.setDeleteFlg(false);
 		syainRepository.save(syain);
 		return syain;
 	}

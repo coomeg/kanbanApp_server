@@ -29,9 +29,7 @@ public class LoginController {
 		if (syain == null) {
 			throw new RuntimeException("メールアドレスまたはパスワードが違います。");
 		}
-		if (session.getAttribute("user") == null) {
-			session.setAttribute("user", syain);
-		}
+		session.setAttribute("user", syain);
 		return syain;
 	}
 
