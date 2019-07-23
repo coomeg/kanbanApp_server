@@ -49,6 +49,24 @@ public class TaskService {
 	}
 
 	/**
+	 * タスクカードのソート順振り直し処理
+	 */
+	public Task setSortTask(TaskBean bean) {
+		bean.setTaskListIdFrom(bean.getTaskListId());
+		bean.setTaskListIdTo(bean.getTaskListId());
+		Task result = this.updateTask(bean);
+		if (bean.getSortNoFrom() < bean.getSortNoTo()) {
+			// 下に移動した場合：例） 2⇒5
+			this.updateSortDestination(bean);
+		} else {
+			// 上に移動した場合：例） 5⇒2
+			this.updateSortOrigin(bean);
+		}
+		// 異なるタスクリストへ移動した場合
+		return result;
+	}
+
+	/**
 	 * システム日付を取得
 	 */
 	private Timestamp sysdate() {

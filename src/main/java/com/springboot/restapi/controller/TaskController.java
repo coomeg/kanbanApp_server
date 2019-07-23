@@ -53,7 +53,7 @@ public class TaskController {
 				bean.getSName() + "%",
 				bean.getDateFrom(),
 				bean.getDateTo(),
-				bean.getKeyword() + "%",
+				"%" + bean.getKeyword() + "%",
 				bean.getTaskListIds());
 	}
 
@@ -118,5 +118,17 @@ public class TaskController {
 	public Task taskMove(@RequestBody TaskBean bean) {
 		System.out.println(bean.toString());
 		return tasktService.taskMove(bean);
+	}
+
+	/**
+	 * タスクカードを移動した際の処理（同一タスクリスト内）
+	 * @param bean
+	 * @return
+	 */
+	@PutMapping
+	@RequestMapping(value="/api/setSortTask", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public Task setSortTask(@RequestBody TaskBean bean) {
+		System.out.println(bean.toString());
+		return tasktService.setSortTask(bean);
 	}
 }
