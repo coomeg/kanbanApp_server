@@ -11,10 +11,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.restapi.controller.data.TaskBean;
@@ -22,6 +24,7 @@ import com.springboot.restapi.entity.Syain;
 import com.springboot.restapi.entity.Task;
 import com.springboot.restapi.repository.TaskListRepository;
 import com.springboot.restapi.repository.TaskRepository;
+import com.springboot.restapi.repository.TaskViewRepository;
 import com.springboot.restapi.service.TaskService;
 
 @RestController
@@ -29,6 +32,8 @@ public class TaskController {
 
 	@Autowired
 	TaskRepository taskRepository;
+	@Autowired
+	TaskViewRepository taskViewRepository;
 	@Autowired
 	TaskListRepository taskListRepository;
 	@Autowired
@@ -130,5 +135,15 @@ public class TaskController {
 	public Task setSortTask(@RequestBody TaskBean bean) {
 		System.out.println(bean.toString());
 		return tasktService.setSortTask(bean);
+	}
+
+//	@GetMapping
+//	public List<TaskView> getTaskView() {
+//		return taskViewRepository.findAll();
+//	}
+
+	@GetMapping
+	public List<Task> test(@RequestParam("param") String param) {
+		return tasktService.parallel(param);
 	}
 }

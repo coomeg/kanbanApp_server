@@ -20,6 +20,7 @@ bootJar {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 sourceCompatibility = 1.8
@@ -35,7 +36,6 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-data-redis'
 	implementation 'redis.clients:jedis'
 	implementation 'org.apache.commons:commons-pool2'
-
 	implementation 'commons-lang:commons-lang:2.4'
 	implementation "org.apache.httpcomponents:httpclient"
 	implementation 'org.modelmapper:modelmapper:0.7.5'
@@ -47,7 +47,11 @@ dependencies {
 
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
-
+	testCompile 'org.jmockit:jmockit:1.19'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile "org.mockito:mockito-core:2.+"
+	testCompile 'junit:junit:4.12'
+    testCompile 'org.powermock:powermock-module-junit4:2.0.0-RC.4'
+    testCompile 'org.powermock:powermock-api-mockito2:2.0.0-RC.4'
 }
